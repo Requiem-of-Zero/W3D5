@@ -49,7 +49,8 @@ class PolyTreeNode
 
         @queue = [self]
         until @queue.empty?
-            current = @queue.shift #one element of our array return current if current.value == target_val
+            current = @queue.shift
+            return current if current.value == target_val #one element of our array return current if current.value == target_val
             @queue += current.children
         end
         nil

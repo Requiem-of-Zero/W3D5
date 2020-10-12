@@ -1,5 +1,4 @@
 class PolyTreeNode
-
     attr_reader :value, :children, :parent
 
     def initialize(value, parent=nil, children=[])
@@ -21,13 +20,13 @@ class PolyTreeNode
         else                    #we had a parent but now were getting a new one 
             @parent.children.delete(self)
             @parent = new_node
-            @parent.children << self
+            @parent.children << self if !@parent.children.include?(self)
         end
     end
 
     
     def add_child(child_node)
-        child_node.parent = self
+        child_node.parent = self if !@children.include?(child_node)
     end
 
     def remove_child(child_node)
@@ -49,6 +48,7 @@ class PolyTreeNode
         @queue = [self]
         until @queue.empty?
             current = @queue.shift #one element of our array return current if current.value == target_val
+            return current if current.value == target_val
             @queue += current.children
         end
         nil
